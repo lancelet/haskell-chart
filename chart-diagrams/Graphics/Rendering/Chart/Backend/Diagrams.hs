@@ -29,6 +29,8 @@ module Graphics.Rendering.Chart.Backend.Diagrams
 
   ) where
 
+import qualified System.IO.Unsafe as Unsafe
+
 import Data.Default.Class
 import Data.Colour
 import Data.Colour.SRGB
@@ -569,7 +571,7 @@ fontStyleToTextOpts env =
       }
 
 fontFromName :: (Read n, RealFloat n) => String -> F.PreparedFont n
-fontFromName name = case name of
+fontFromName name = Unsafe.unsafePerformIO $ case name of
   "serif" -> F.lin
   "monospace" -> F.bit
   _ -> F.lin
